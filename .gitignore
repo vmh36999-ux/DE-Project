@@ -1,0 +1,32 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+**/__pycache__/
+*.py[cod]
+
+# Airflow
+airflow/logs/
+airflow/.env
+
+# Local logs
+logs/
+*.log
+
+# dbt generated files
+**/target/
+**/dbt_packages/
+
+# IDE
+.vscode/
+.idea/
+
+# Personal files
+Creds
+Note/
+
+# Local cache/data
+*.parquet

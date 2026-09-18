@@ -1,0 +1,36 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Airflow
+airflow/logs/
+airflow/.env
+
+# dbt
+**/target/
+**/dbt_packages/
+**/.user.yml
+**/logs/
+
+# Local data / cache
+*.parquet
+*.csv
+*.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
