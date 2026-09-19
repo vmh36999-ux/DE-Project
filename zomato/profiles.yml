@@ -1,13 +1,13 @@
 zomato:
   outputs:
     dev:
-      account: WEPOEJO-QU74750
+      account: 
       database: ZOMATO
-      password: 0355852393@AZz
+      password: 
       role: DBT_ROLE
       schema: STAGING
       threads: 1
       type: snowflake
-      user: THUCTD6
+      user: 
       warehouse: ZOMATO_WH
   target: dev
