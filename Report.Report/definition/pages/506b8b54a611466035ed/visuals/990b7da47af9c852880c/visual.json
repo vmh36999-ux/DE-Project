@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "990b7da47af9c852880c",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 1080,
+    "width": 1919.5890410958905,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_customer"
+                    }
+                  },
+                  "Property": "customer_id"
+                }
+              },
+              "queryRef": "dim_customer.customer_id",
+              "nativeQueryRef": "customer_id"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_orders"
+                    }
+                  },
+                  "Property": "Total Orders"
+                }
+              },
+              "queryRef": "fct_orders.Total Orders",
+              "nativeQueryRef": "Total Orders"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_orders"
+                    }
+                  },
+                  "Property": "Total Revenue"
+                }
+              },
+              "queryRef": "fct_orders.Total Revenue",
+              "nativeQueryRef": "Total Revenue"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_orders"
+                    }
+                  },
+                  "Property": "Average Order Value"
+                }
+              },
+              "queryRef": "fct_orders.Average Order Value",
+              "nativeQueryRef": "Average Order Value"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

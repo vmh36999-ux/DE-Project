@@ -1,0 +1,11 @@
+expression 'DirectLake - WH_Zomato' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/1b578a91-56d8-4afd-a1fe-ef5156c0cdbf/9c1bcf15-4ecd-46fa-9d2f-cc5af00235bf", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: 5c393d9c-82fb-4983-ac44-3a73da9ec5f4
+
+	annotation PBI_IncludeFutureArtifacts = False
+
+	annotation PBI_RemovedChildren = [{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[staging].[my_first_dbt_model]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[staging].[dq_reconciliation]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[staging].[dq_quarantine]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[staging].[dq_run_summary]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[staging].[mart_restaurant_performance]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[staging].[mart_daily_city_revenue]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[staging].[mart_review_insights]"}},"objectType":"Table"}]
+

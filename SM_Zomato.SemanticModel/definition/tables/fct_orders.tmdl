@@ -1,0 +1,368 @@
+table fct_orders
+	lineageTag: c06a5bd2-42aa-4fb1-a1a7-cdb46a89fecc
+	sourceLineageTag: [staging].[fct_orders]
+
+	measure 'Total Revenue' =
+			
+			SUM(fct_orders[sales_amount])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 35fbb7e1-cef6-4631-b1aa-1de7dbc4c0fb
+
+		changedProperty = Name
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Orders' =
+			
+			COUNTROWS(fct_orders)
+		formatString: 0
+		lineageTag: f595f1e3-fda0-44b3-8446-90225548ffc7
+
+		changedProperty = Name
+
+	measure 'Average Order Value' =
+			
+			DIVIDE(
+			    [Total Revenue],
+			    [Total Orders]
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 9cd52c09-4c3d-408f-96b2-e12aa6bee75c
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Active Customers' =
+			
+			DISTINCTCOUNT(fct_orders[customer_id])
+		formatString: 0
+		lineageTag: 51faea83-89c4-47d8-8d70-e3fc4f7509ac
+
+		changedProperty = Name
+
+	measure 'Total Discount' =
+			
+			SUM(fct_orders[discount])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 6e83c771-d8c3-4642-a8c7-ca1aedd3fa19
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Delivery Fee' =
+			
+			SUM(fct_orders[delivery_fee])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 77912824-6768-4fb0-a86c-03643f14e7fa
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total GST' =
+			
+			SUM(fct_orders[gst])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: e7d00f74-8da5-4d21-a495-9e5804e93931
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Subtotal' =
+			
+			SUM(fct_orders[subtotal])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 80d76ffe-d472-444b-9acc-0c753a43d7c6
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue per Customer' =
+			
+			DIVIDE(
+			    [Total Revenue],
+			    [Active Customers]
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 162134cf-3b9c-41d4-bc65-c82c1616575f
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Average Delivery Time' =
+			
+			AVERAGE(fct_orders[delivery_time_min])
+		lineageTag: 0672ec27-be1d-48e1-8ed1-eb11565ed125
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'On Time Orders' =
+			
+			CALCULATE(
+			    [Total Orders],
+			    fct_orders[delivery_time_min] <= 30
+			)
+		formatString: 0
+		lineageTag: 568e3896-a44f-4c95-b732-bf0bacdbb728
+
+		changedProperty = Name
+
+	measure 'Late Orders' =
+			
+			CALCULATE(
+			    [Total Orders],
+			    fct_orders[delivery_time_min] > 30
+			)
+		formatString: 0
+		lineageTag: 1c515241-8414-4ddb-b19a-bf3da4ce859c
+
+		changedProperty = Name
+
+	measure 'On Time Rate' =
+			
+			DIVIDE(
+			    [On Time Orders],
+			    [Total Orders]
+			)
+		lineageTag: d8149fe1-4b96-48a8-8499-bdf94a5db7d3
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Late Rate' =
+			
+			DIVIDE(
+			    [Late Orders],
+			    [Total Orders]
+			)
+		lineageTag: a5098781-b2c2-4b2c-81ab-95e8ea9fb6fe
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'P50 Delivery Time' =
+			
+			PERCENTILEX.INC(
+			    FILTER(
+			        fct_orders,
+			        NOT ISBLANK(fct_orders[delivery_time_min])
+			    ),
+			    fct_orders[delivery_time_min],
+			    0.5
+			)
+		lineageTag: d588f13a-4066-40ee-90ab-7d0dc0c2addb
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'P90 Delivery Time' =
+			
+			PERCENTILEX.INC(
+			    FILTER(
+			        fct_orders,
+			        NOT ISBLANK(fct_orders[delivery_time_min])
+			    ),
+			    fct_orders[delivery_time_min],
+			    0.9
+			)
+		lineageTag: 9ae9715e-a9bb-4304-b9c1-af9e9b73053f
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_id
+		dataType: string
+		lineageTag: e0812308-3a8f-4ea0-a8a1-ece9fa5215b4
+		sourceLineageTag: order_id
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 772ad401-1faa-42be-9a29-4597cc9042f7
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column restaurant_id
+		dataType: string
+		lineageTag: 3bb87eb1-f140-44c5-933e-332d68095f81
+		sourceLineageTag: restaurant_id
+		summarizeBy: none
+		sourceColumn: restaurant_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7b291c5c-2c19-4e9d-bae0-a27dde58e98b
+		sourceLineageTag: order_date
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e0f0d57d-8e71-493d-a36d-82774e1c6132
+		sourceLineageTag: order_timestamp
+		summarizeBy: none
+		sourceColumn: order_timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column items_count
+		dataType: int64
+		formatString: 0
+		lineageTag: ef10acc1-df61-4d15-b73d-adf18a101ed1
+		sourceLineageTag: items_count
+		summarizeBy: sum
+		sourceColumn: items_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_qty
+		dataType: int64
+		formatString: 0
+		lineageTag: 582bd707-462f-473b-aefd-185f357b0c51
+		sourceLineageTag: sales_qty
+		summarizeBy: sum
+		sourceColumn: sales_qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column subtotal
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 0976bd55-fb1c-4eb9-b952-5e2f87d47f66
+		sourceLineageTag: subtotal
+		summarizeBy: sum
+		sourceColumn: subtotal
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column discount
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 264dafcf-577b-415d-89e7-926efeb750dc
+		sourceLineageTag: discount
+		summarizeBy: sum
+		sourceColumn: discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column delivery_fee
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: e12a6252-5c03-41ef-80eb-39533ab0c2e8
+		sourceLineageTag: delivery_fee
+		summarizeBy: sum
+		sourceColumn: delivery_fee
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column gst
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 9db9ce48-757e-4769-b77a-92c60ea4c038
+		sourceLineageTag: gst
+		summarizeBy: sum
+		sourceColumn: gst
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column sales_amount
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f41b317a-7ede-49f6-964b-48e90775726d
+		sourceLineageTag: sales_amount
+		summarizeBy: sum
+		sourceColumn: sales_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column currency
+		dataType: string
+		lineageTag: 9868e4e4-b923-44b7-9541-e1cc151573a8
+		sourceLineageTag: currency
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: f477eab1-c324-464f-9f36-95ac5beeec04
+		sourceLineageTag: payment_method
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: f3267bf4-ea0f-444c-a6ce-b2ea7c1b3849
+		sourceLineageTag: order_status
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_rating
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 0e91b27e-d9e9-41ac-93ef-7a725d22a85a
+		sourceLineageTag: customer_rating
+		summarizeBy: sum
+		sourceColumn: customer_rating
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column delivery_time_min
+		dataType: int64
+		formatString: 0
+		lineageTag: ae4c7043-c234-4313-9172-3489b143aafb
+		sourceLineageTag: delivery_time_min
+		summarizeBy: sum
+		sourceColumn: delivery_time_min
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_orders = entity
+		mode: directLake
+		source
+			entityName: fct_orders
+			schemaName: staging
+			expressionSource: 'DirectLake - WH_Zomato'
+

@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Raw data from LH_Zomato_Bronze"
+
+    database: LH_Zomato_Bronze
+    schema: dbo
+
+    tables:
+      - name: restaurants_raw
+
+      - name: users_raw
+
+      - name: food_raw
+
+      - name: menu_raw
+
+      - name: orders_raw
+
+      - name: order_items_raw
+
+      - name: reviews_raw

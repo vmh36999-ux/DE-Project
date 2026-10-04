@@ -1,0 +1,71 @@
+table dim_date
+	lineageTag: 2aaec562-3207-4abc-9422-7fe33893c6e4
+	sourceLineageTag: [staging].[dim_date]
+
+	column date_day
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 30e0f9f6-c8c2-413c-ad3d-06865bd0d3ef
+		sourceLineageTag: date_day
+		summarizeBy: none
+		sourceColumn: date_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: fa3d679f-8a0d-478f-b98a-6d4f6acfff5b
+		sourceLineageTag: year
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 51d4ea82-914b-4fea-ab3c-9a1fbda74a5c
+		sourceLineageTag: month
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column day
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c93a363-1f58-4047-b413-052f0fb53097
+		sourceLineageTag: day
+		summarizeBy: none
+		sourceColumn: day
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 6ae3f6db-b663-404c-b793-f16e9771517f
+		sourceLineageTag: quarter
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		formatString: 0
+		lineageTag: 8105ace0-95a9-49d2-89cb-4c29bc228fdc
+		sourceLineageTag: day_of_week
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = entity
+		mode: directLake
+		source
+			entityName: dim_date
+			schemaName: staging
+			expressionSource: 'DirectLake - WH_Zomato'
+

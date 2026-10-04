@@ -1,0 +1,234 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "149eaa8e-0ea3-9179-4c55-f1ce9a64636f",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 3,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "NB_01_Bronze_Ingestion",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "ee217488-ca4a-a391-4d9a-d145253f82f3",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Bronze_DQ",
+        "dependsOn": [
+          {
+            "activity": "NB_01_Bronze_Ingestion",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "6fdc3bad-3fef-a8ca-4eb9-bc45f8f90f07",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "NB_Error_Log",
+        "dependsOn": [
+          {
+            "activity": "Bronze_DQ",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokeDataBuildToolJob",
+        "typeProperties": {
+          "dataBuildToolJobId": "55df569b-2913-aeba-4996-74cd90154d8e",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "threads": 4,
+          "operation": "build"
+        },
+        "externalReferences": {
+          "connection": "ce9728fb-96d1-45e9-b59b-51f9a4abfe1d"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "dbt_Staging",
+        "dependsOn": [
+          {
+            "activity": "Bronze_DQ",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokeDataBuildToolJob",
+        "typeProperties": {
+          "dataBuildToolJobId": "55df569b-2913-aeba-4996-74cd90154d8e",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "threads": 4,
+          "operation": "build"
+        },
+        "externalReferences": {
+          "connection": "ce9728fb-96d1-45e9-b59b-51f9a4abfe1d"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "dbt_Marts",
+        "dependsOn": [
+          {
+            "activity": "dbt_Staging",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokeDataBuildToolJob",
+        "typeProperties": {
+          "dataBuildToolJobId": "55df569b-2913-aeba-4996-74cd90154d8e",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "select": "dq_quarantine dq_reconciliation dq_run_summary",
+          "threads": 4,
+          "operation": "build"
+        },
+        "externalReferences": {
+          "connection": "ce9728fb-96d1-45e9-b59b-51f9a4abfe1d"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "dbt_Gold_DQ",
+        "dependsOn": [
+          {
+            "activity": "dbt_Marts",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Lookup",
+        "typeProperties": {
+          "source": {
+            "type": "DataWarehouseSource",
+            "sqlReaderQuery": "select\n    dq_status,\n    quarantine_count,\n    reconciliation_status\nfrom staging.dq_run_summary;",
+            "partitionOption": "None",
+            "queryTimeout": "02:00:00"
+          },
+          "datasetSettings": {
+            "type": "DataWarehouseTable",
+            "schema": [],
+            "linkedService": {
+              "name": "WH_Zomato",
+              "properties": {
+                "type": "DataWarehouse",
+                "typeProperties": {
+                  "artifactId": "f00235bf-cc5a-9d2f-46fa-4ecd9c1bcf15",
+                  "endpoint": "bkjr54bowwyufnypvcecwxiehm-sgffog6yk36uvip655ivnqgnx4.datawarehouse.fabric.microsoft.com",
+                  "workspaceId": "00000000-0000-0000-0000-000000000000"
+                },
+                "annotations": []
+              }
+            },
+            "annotations": []
+          },
+          "firstRowOnly": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Gold_DQ_Lookup",
+        "dependsOn": [
+          {
+            "activity": "dbt_Gold_DQ",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@equals(\n    activity('Gold_DQ_Lookup').output.firstRow.dq_status,\n    'PASS'\n)",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [],
+          "ifFalseActivities": []
+        },
+        "name": "Gold_DQ_Gate",
+        "dependsOn": [
+          {
+            "activity": "Gold_DQ_Lookup",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Fail",
+        "typeProperties": {
+          "message": "Gold Data Quality check failed",
+          "errorCode": "DQ001"
+        },
+        "name": "Gold_DQ_Failed",
+        "dependsOn": [
+          {
+            "activity": "Gold_DQ_Gate",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

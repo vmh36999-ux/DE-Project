@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "06bf94a7ec180b64e297",
+  "displayName": "05_Delivery SLA",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920
+}

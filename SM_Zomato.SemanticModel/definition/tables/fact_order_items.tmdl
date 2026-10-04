@@ -1,0 +1,81 @@
+table fact_order_items
+	lineageTag: 316e169a-fa32-4882-ba0f-738a4c0ecf3d
+	sourceLineageTag: [staging].[fact_order_items]
+
+	column order_item_id
+		dataType: string
+		lineageTag: 643cedeb-fdec-4fb9-938b-401b602c18f2
+		sourceLineageTag: order_item_id
+		summarizeBy: none
+		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: string
+		lineageTag: 9be3524e-7de5-4dba-88d2-151550759002
+		sourceLineageTag: order_id
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column restaurant_id
+		dataType: string
+		lineageTag: 590fc24a-e691-452e-8f39-9221f55fcf1d
+		sourceLineageTag: restaurant_id
+		summarizeBy: none
+		sourceColumn: restaurant_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column food_id
+		dataType: string
+		lineageTag: ae36ab7c-9857-453f-a45a-58fe5facb0e0
+		sourceLineageTag: food_id
+		summarizeBy: none
+		sourceColumn: food_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 3c0d86cb-de32-4e06-a3e3-0ea906561dce
+		sourceLineageTag: price
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: f50c9ba1-0af6-4531-b8dc-bef1d239844b
+		sourceLineageTag: quantity
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column line_amount
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 455b6678-d9b1-4a48-96b5-451badee6dd4
+		sourceLineageTag: line_amount
+		summarizeBy: sum
+		sourceColumn: line_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition fact_order_items = entity
+		mode: directLake
+		source
+			entityName: fact_order_items
+			schemaName: staging
+			expressionSource: 'DirectLake - WH_Zomato'
+

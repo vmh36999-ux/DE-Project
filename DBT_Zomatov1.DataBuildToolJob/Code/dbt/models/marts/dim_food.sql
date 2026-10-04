@@ -1,0 +1,6 @@
+select
+    food_id,
+    food_name,
+    food_type
+
+from {{ ref('stg_food') }}

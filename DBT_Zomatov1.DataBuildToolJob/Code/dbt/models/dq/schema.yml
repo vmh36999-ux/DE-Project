@@ -1,0 +1,78 @@
+version: 2
+
+models:
+
+  - name: stg_orders
+    columns:
+
+      - name: order_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: user_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_id
+
+      - name: restaurant_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_restaurants')
+                field: restaurant_id
+
+  - name: stg_order_items
+    columns:
+
+      - name: order_item_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: order_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_orders')
+                field: order_id
+
+      - name: food_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_food')
+                field: food_id
+
+      - name: restaurant_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_restaurants')
+                field: restaurant_id
+
+  - name: stg_reviews
+    columns:
+
+      - name: review_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: order_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_orders')
+                field: order_id
+
+      - name: user_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_id
