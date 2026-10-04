@@ -1,0 +1,28 @@
+{
+  "project": {
+    "projectType": "OneLake",
+    "folderPath": "dbt"
+  },
+  "profile": {
+    "profileType": "DataWarehouse",
+    "schema": "staging",
+    "connectionSettings": {
+      "name": "WH_Zomato",
+      "properties": {
+        "type": "DataWarehouse",
+        "typeProperties": {
+          "workspaceId": "1b578a91-56d8-4afd-a1fe-ef5156c0cdbf",
+          "artifactId": "9c1bcf15-4ecd-46fa-9d2f-cc5af00235bf",
+          "endPoint": "bkjr54bowwyufnypvcecwxiehm-sgffog6yk36uvip655ivnqgnx4.datawarehouse.fabric.microsoft.com"
+        }
+      }
+    }
+  },
+  "command": {
+    "operation": "build",
+    "arguments": {
+      "exclude": "",
+      "threads": 4
+    }
+  }
+}

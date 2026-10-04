@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "PL_Zomato_Daily"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ab67ec4e-37d1-9d81-4735-0daa84e5cec4"
+  }
+}

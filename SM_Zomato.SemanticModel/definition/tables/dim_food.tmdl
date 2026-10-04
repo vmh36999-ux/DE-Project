@@ -1,0 +1,38 @@
+table dim_food
+	lineageTag: 5ac2629a-44af-43a5-ace1-56ec2a82491e
+	sourceLineageTag: [staging].[dim_food]
+
+	column food_id
+		dataType: string
+		lineageTag: e3a09718-ccac-4ee2-9412-ca7996cd830b
+		sourceLineageTag: food_id
+		summarizeBy: none
+		sourceColumn: food_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column food_name
+		dataType: string
+		lineageTag: 17f257bf-b80a-4c86-85a5-a0ec9e5a16ab
+		sourceLineageTag: food_name
+		summarizeBy: none
+		sourceColumn: food_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column food_type
+		dataType: string
+		lineageTag: 6e4d52eb-16cc-4a35-a269-4bef4b6e1c1d
+		sourceLineageTag: food_type
+		summarizeBy: none
+		sourceColumn: food_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_food = entity
+		mode: directLake
+		source
+			entityName: dim_food
+			schemaName: staging
+			expressionSource: 'DirectLake - WH_Zomato'
+

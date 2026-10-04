@@ -1,0 +1,106 @@
+table dim_customer
+	lineageTag: b8a2b1f8-e039-420b-a223-f2797326fe99
+	sourceLineageTag: [staging].[dim_customer]
+
+	column customer_id
+		dataType: string
+		lineageTag: 350c255c-6d05-4190-aca2-9ad3ea66c41a
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		lineageTag: 397b0a91-3d4c-43cf-966b-f4c11445b283
+		sourceLineageTag: customer_name
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: 83b99f20-377b-4f3a-b8dc-560e98ed9b4e
+		sourceLineageTag: email
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: int64
+		formatString: 0
+		lineageTag: 44c22610-40a7-4257-8fb4-db9807af255e
+		sourceLineageTag: age
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: f91abe36-172e-464b-936a-c47ee08e614b
+		sourceLineageTag: gender
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column marital_status
+		dataType: string
+		lineageTag: 58fda39b-6bca-4180-afb3-b9b04e22cd8e
+		sourceLineageTag: marital_status
+		summarizeBy: none
+		sourceColumn: marital_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column occupation
+		dataType: string
+		lineageTag: e60fefa6-17a3-4bc4-8465-eaf5db33b614
+		sourceLineageTag: occupation
+		summarizeBy: none
+		sourceColumn: occupation
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_income
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f8d8901c-71a5-40d1-b73f-d26f13ba5735
+		sourceLineageTag: monthly_income
+		summarizeBy: none
+		sourceColumn: monthly_income
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column educational_qualifications
+		dataType: string
+		lineageTag: 6b474376-28b3-4a05-af32-74650905a01d
+		sourceLineageTag: educational_qualifications
+		summarizeBy: none
+		sourceColumn: educational_qualifications
+
+		annotation SummarizationSetBy = Automatic
+
+	column family_size
+		dataType: int64
+		formatString: 0
+		lineageTag: 830965a0-1b5a-4104-bc4a-6c7394307d21
+		sourceLineageTag: family_size
+		summarizeBy: none
+		sourceColumn: family_size
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = entity
+		mode: directLake
+		source
+			entityName: dim_customer
+			schemaName: staging
+			expressionSource: 'DirectLake - WH_Zomato'
+

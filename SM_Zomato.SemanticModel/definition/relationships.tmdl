@@ -1,0 +1,20 @@
+relationship 82e18550-fad7-6d80-e4c0-58dfa944757d
+	fromColumn: fct_orders.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship 03600bd2-cc04-21fb-506e-470199ca1254
+	fromColumn: fct_orders.restaurant_id
+	toColumn: dim_restaurant.restaurant_id
+
+relationship 0f6cea7d-c90b-f8f4-9710-85dd256b7bab
+	fromColumn: fact_order_items.order_id
+	toColumn: fct_orders.order_id
+
+relationship a2598184-0040-c3aa-7652-19c2f8274ec4
+	fromColumn: fact_order_items.food_id
+	toColumn: dim_food.food_id
+
+relationship 7c0ec8c3-5102-c4f6-5316-1675197ee70d
+	fromColumn: fct_orders.order_date
+	toColumn: dim_date.date_day
+

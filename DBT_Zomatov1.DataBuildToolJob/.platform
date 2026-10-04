@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataBuildToolJob",
+    "displayName": "DBT_Zomatov1"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "55df569b-2913-aeba-4996-74cd90154d8e"
+  }
+}

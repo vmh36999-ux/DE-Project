@@ -1,0 +1,139 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "57115d36f52da1993411",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 427.1917808219178,
+    "width": 1102.1917808219177
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_orders"
+                    }
+                  },
+                  "Property": "Average Delivery Time"
+                }
+              },
+              "queryRef": "fct_orders.Average Delivery Time",
+              "nativeQueryRef": "Average Delivery Time"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_orders"
+                    }
+                  },
+                  "Property": "On Time Orders"
+                }
+              },
+              "queryRef": "fct_orders.On Time Orders",
+              "nativeQueryRef": "On Time Orders"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_orders"
+                    }
+                  },
+                  "Property": "P50 Delivery Time"
+                }
+              },
+              "queryRef": "fct_orders.P50 Delivery Time",
+              "nativeQueryRef": "P50 Delivery Time"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_orders"
+                    }
+                  },
+                  "Property": "P90 Delivery Time"
+                }
+              },
+              "queryRef": "fct_orders.P90 Delivery Time",
+              "nativeQueryRef": "P90 Delivery Time"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_orders"
+                    }
+                  },
+                  "Property": "On Time Rate"
+                }
+              },
+              "queryRef": "fct_orders.On Time Rate",
+              "nativeQueryRef": "On Time Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_orders"
+                    }
+                  },
+                  "Property": "Late Rate"
+                }
+              },
+              "queryRef": "fct_orders.Late Rate",
+              "nativeQueryRef": "Late Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_orders"
+                    }
+                  },
+                  "Property": "Total Orders"
+                }
+              },
+              "queryRef": "fct_orders.Total Orders",
+              "nativeQueryRef": "Total Orders"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fct_orders"
+                  }
+                },
+                "Property": "Average Delivery Time"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

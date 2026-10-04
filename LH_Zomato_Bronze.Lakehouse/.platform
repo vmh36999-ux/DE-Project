@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "LH_Zomato_Bronze"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "6bf3f4f4-923d-a3af-42e4-d48e9b24ad13"
+  }
+}

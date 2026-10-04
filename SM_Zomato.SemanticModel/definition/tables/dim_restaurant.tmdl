@@ -1,0 +1,108 @@
+table dim_restaurant
+	lineageTag: aaeffa12-6971-4325-8f5f-d9b0d780c386
+	sourceLineageTag: [staging].[dim_restaurant]
+
+	measure 'Average Rating' =
+			
+			AVERAGE(dim_restaurant[rating])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: a1852fa5-d66c-4f5b-8207-efef5c2ef579
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column restaurant_id
+		dataType: string
+		lineageTag: 97190d33-32b1-48fd-87ed-9a915ad1d0f2
+		sourceLineageTag: restaurant_id
+		summarizeBy: none
+		sourceColumn: restaurant_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column restaurant_name
+		dataType: string
+		lineageTag: 8fbe3a84-4de7-4ac0-a559-540b79b03d51
+		sourceLineageTag: restaurant_name
+		summarizeBy: none
+		sourceColumn: restaurant_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: c172f12a-74e9-41e9-a846-dff6501d5049
+		sourceLineageTag: city
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column rating
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 7b837e10-bf89-4296-b129-adf13158f119
+		sourceLineageTag: rating
+		summarizeBy: none
+		sourceColumn: rating
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column cost_for_two
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 6fbaaae0-6f36-478d-a17f-271e409f5820
+		sourceLineageTag: cost_for_two
+		summarizeBy: none
+		sourceColumn: cost_for_two
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column cuisine
+		dataType: string
+		lineageTag: 9f8f4484-4924-49f9-99ef-b1f73888090a
+		sourceLineageTag: cuisine
+		summarizeBy: none
+		sourceColumn: cuisine
+
+		annotation SummarizationSetBy = Automatic
+
+	column license_no
+		dataType: string
+		lineageTag: 741afd7d-b29f-4c2d-b774-a8f2aa57a363
+		sourceLineageTag: license_no
+		summarizeBy: none
+		sourceColumn: license_no
+
+		annotation SummarizationSetBy = Automatic
+
+	column link
+		dataType: string
+		lineageTag: 0490abc2-0a1d-4b6a-91e7-67caac2e26df
+		sourceLineageTag: link
+		summarizeBy: none
+		sourceColumn: link
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: 97b5a2ed-3342-4c1a-993e-afe7ab11515c
+		sourceLineageTag: address
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_restaurant = entity
+		mode: directLake
+		source
+			entityName: dim_restaurant
+			schemaName: staging
+			expressionSource: 'DirectLake - WH_Zomato'
+
